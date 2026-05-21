@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Plantilla de informe de factura personalizada: WillmanTech S.L. -->
+        <template id="report_invoice_willmantech">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="article o_report_layout_standard">
+                        <div class="page">
+                            <!-- Cabecera corporativa -->
+                            <header class="row mb-4">
+                                <div class="col-6">
+                                    <h2 class="mb-0">WillmanTech S.L.</h2>
+                                    <p class="text-muted mb-0">
+                                        Informe de factura personalizado
+                                    </p>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <strong>Factura</strong>
+                                    <p class="mb-0">
+                                        N.º:
+                                        <span t-field="doc.name"/>
+                                    </p>
+                                    <p class="mb-0">
+                                        Fecha de emisión:
+                                        <span t-field="doc.date"/>
+                                    </p>
+                                </div>
+                            </header>
+
+                            <!-- Cliente y datos de la factura -->
+                            <section class="row mb-4">
+                                <div class="col-6">
+                                    <strong>Cliente</strong>
+                                    <address t-field="doc.partner_id"
+                                             t-options="{'widget': 'contact', 'fields': ['name', 'address'], 'no_marker': True}"/>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <p t-if="doc.invoice_date_due" class="mb-0">
+                                        Vencimiento:
+                                        <span t-field="doc.invoice_date_due"/>
+                                    </p>
+                                    <p t-if="doc.ref" class="mb-0">
+                                        Referencia:
+                                        <span t-field="doc.ref"/>
+                                    </p>
+                                </div>
+                            </section>
+
+                            <!-- Detectar si alguna línea tiene descuento (oculta columna si no) -->
+                            <t t-set="show_discount" t-value="False"/>
+                            <t t-foreach="doc.invoice_line_ids" t-as="line_check">
+                                <t t-if="line_check.discount" t-set="show_discount" t-value="True"/>
+                            </t>
+
+                            <!-- Detalle de líneas -->
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th name="th_description" class="text-start">Descripción</th>
+                                        <th name="th_quantity" class="text-end">Cantidad</th>
+                                        <th name="th_priceunit" class="text-end">Precio unit.</th>
+                                        <th name="th_discount"
+                                            t-if="show_discount"
+                                            class="text-end">
+                                            Descuento
+                                        </th>
+                                        <th name="th_subtotal" class="text-end">Importe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                        <tr>
+                                            <td name="td_description">
+                                                <span t-field="line.name"/>
+                                            </td>
+                                            <td name="td_quantity" class="text-end">
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                            <td name="td_priceunit" class="text-end">
+                                                <span t-field="line.price_unit"/>
+                                            </td>
+                                            <td name="td_discount"
+                                                t-if="show_discount"
+                                                class="text-end">
+                                                <span t-field="line.discount"/>
+                                                <span>%</span>
+                                            </td>
+                                            <td name="td_subtotal" class="text-end">
+                                                <span t-field="line.price_subtotal"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <!-- Totales -->
+                            <div class="row justify-content-end">
+                                <div class="col-4">
+                                    <table class="table table-sm">
+                                        <tr t-if="doc.amount_untaxed != doc.amount_total">
+                                            <td>Base imponible</td>
+                                            <td class="text-end">
+                                                <span t-field="doc.amount_untaxed"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="doc.amount_tax">
+                                            <td>Impuestos</td>
+                                            <td class="text-end">
+                                                <span t-field="doc.amount_tax"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-black o_total">
+                                            <td><strong>Total neto</strong></td>
+                                            <td class="text-end">
+                                                <strong t-field="doc.amount_total"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <footer class="mt-5 text-center text-muted">
+                                <small>Documento generado por WillmanTech S.L.</small>
+                            </footer>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <!-- Acción de informe (vincula la plantilla al modelo account.move) -->
+        <record id="action_report_invoice_willmantech" model="ir.actions.report">
+            <field name="name">Factura WillmanTech</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">report_invoice_willmantech</field>
+            <field name="report_file">report_invoice_willmantech</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

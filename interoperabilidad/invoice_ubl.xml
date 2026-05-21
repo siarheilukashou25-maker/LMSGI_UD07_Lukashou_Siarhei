@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Fragmento de factura electrónica UBL 2.1 — WillmanTech S.L.
+  Compatible EN 16931 / red PEPPOL (BIS Billing 3.0).
+  Namespaces obligatorios: Invoice (raíz), cac (agregados), cbc (básicos).
+-->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- Identificación del estándar (EN 16931 + PEPPOL Billing 3.0) -->
+    <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:efc.eu:org:2010:ubl.cba.billing:3.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>
+
+    <cbc:ID>hjghj2</cbc:ID>
+    <cbc:IssueDate>2026-05-21</cbc:IssueDate>
+    <cbc:DueDate>2026-06-21</cbc:DueDate>
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+    <cbc:BuyerReference>PO-2026-WT-029</cbc:BuyerReference>
+
+    <!-- Proveedor: WillmanTech S.L. -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cbc:EndpointID schemeID="9922">ESB12345678</cbc:EndpointID>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="9922">ESB12345678</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>WillmanTech S.L.</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Calle Innovación 42</cbc:StreetName>
+                <cbc:CityName>Madrid</cbc:CityName>
+                <cbc:PostalZone>28001</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>ES</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>ESB12345678</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>WillmanTech S.L.</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Facturación WillmanTech</cbc:Name>
+                <cbc:ElectronicMail>facturacion@willmantech.es</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Cliente (datos alineados con invoice_export.json) -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cbc:EndpointID schemeID="9922">ESB87654321</cbc:EndpointID>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="9922">ESB87654321</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Azure Interior</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Avenida Cliente 15</cbc:StreetName>
+                <cbc:CityName>Barcelona</cbc:CityName>
+                <cbc:PostalZone>08001</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>ES</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>ESB87654321</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Azure Interior</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:ElectronicMail>azure.Interior24@example.com</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Forma de pago -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+        <cbc:PaymentDueDate>2026-06-21</cbc:PaymentDueDate>
+    </cac:PaymentMeans>
+
+    <!-- Impuestos (exento / 0 % — coherente con amount_tax = 0) -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">1820.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>E</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Totales legales monetarios -->
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="EUR">1820.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="EUR">1820.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="EUR">1820.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="EUR">1820.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Líneas de factura -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">750.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>Escritorio personalizable (Blanco) 160x80cm</cbc:Description>
+            <cbc:Name>[DESK0005] Escritorio personalizable</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>DESK0005</cbc:ID>
+            </cac:SellersItemIdentification>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">750.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">750.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>Escritorio personalizable (Negro) 160x80cm</cbc:Description>
+            <cbc:Name>[DESK0006] Escritorio personalizable</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>DESK0006</cbc:ID>
+            </cac:SellersItemIdentification>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">750.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <cac:InvoiceLine>
+        <cbc:ID>3</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">320.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>Gabinete grande</cbc:Description>
+            <cbc:Name>[E-COM07] Gabinete grande</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>E-COM07</cbc:ID>
+            </cac:SellersItemIdentification>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">320.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

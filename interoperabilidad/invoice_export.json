@@ -1,0 +1,45 @@
+[
+  {
+    "invoice_id": 29,
+    "number": "hjghj2",
+    "date": "2026-05-21",
+    "state": "posted",
+    "customer": {
+      "id": 15,
+      "name": "Azure Interior",
+      "email": "azure.Interior24@example.com"
+    },
+    "lines": [
+      {
+        "id": 64,
+        "description": "[DESK0005] Escritorio personalizable (Personalizado, Blanco)\n160x80cm, con patas grandes.",
+        "product": "[DESK0005] Customizable Desk (Custom, White)",
+        "quantity": 1.0,
+        "unit_price": 750.0,
+        "discount_percent": 0.0,
+        "subtotal": 750.0
+      },
+      {
+        "id": 65,
+        "description": "[DESK0006] Escritorio personalizable (Personalizado, Negro)\n160x80cm, con patas grandes.",
+        "product": "[DESK0006] Customizable Desk (Custom, Black)",
+        "quantity": 1.0,
+        "unit_price": 750.0,
+        "discount_percent": 0.0,
+        "subtotal": 750.0
+      },
+      {
+        "id": 66,
+        "description": "[E-COM07] Gabinete grande",
+        "product": "[E-COM07] Large Cabinet",
+        "quantity": 1.0,
+        "unit_price": 320.0,
+        "discount_percent": 0.0,
+        "subtotal": 320.0
+      }
+    ],
+    "amount_untaxed": 1820.0,
+    "amount_tax": 0.0,
+    "amount_total": 1820.0
+  }
+]
